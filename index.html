@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Countdown 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top right, #ffe6f0, #e6f9ff);
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.5em;
+    }
+
+    .love-note {
+      font-size: 1.3em;
+      margin: 20px auto 30px;
+      max-width: 700px;
+      padding: 0 20px;
+      color: #d6336c;
+    }
+
+    #countdown {
+      font-size: 2em;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .mySlides {
+      display: none;
+      width: 100%;
+    }
+
+    .mySlides img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .fade {
+      animation: fade 1s ease-in-out;
+    }
+
+    @keyframes fade {
+      from {opacity: .4}
+      to {opacity: 1}
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #d6336c;
+    }
+
+    #audio-controls {
+      margin-top: 20px;
+    }
+
+    button {
+      background: #ffccdd;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      color: #333;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ffb3c6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>To My Love 💖</h1>
+
+  <div class="love-note">
+    You light up my life in ways words can’t describe. Every day with you feels special, and I can't wait to celebrate the most amazing person I know — YOU. Here's a little countdown to your beautiful day. 🎂
+  </div>
+
+  <div id="countdown">Loading...</div>
+
+  <div class="slideshow-container">
+    <div class="mySlides fade"><img src="img/photo1.jpg" alt="Photo 1"></div>
+    <div class="mySlides fade"><img src="img/photo2.jpg" alt="Photo 2"></div>
+    <div class="mySlides fade"><img src="img/photo3.jpg" alt="Photo 3"></div>
+    <div class="mySlides fade"><img src="img/photo4.jpg" alt="Photo 4"></div>
+    <!-- Add more if needed -->
+  </div>
+
+  <div id="message"></div>
+
+  <div id="audio-controls">
+    <audio id="bg-music" loop autoplay muted>
+      <source src="music/love-song.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <button onclick="toggleMute()">🔈 Toggle Music</button>
+  </div>
+
+  <script>
+    // --- Countdown Timer ---
+    const birthday = new Date(2025, 9, 12, 0, 0, 0); // Oct 12, 2025
+    const countdownElement = document.getElementById("countdown");
+    const messageElement = document.getElementById("message");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = birthday - now;
+
+      if (distance < 0) {
+        countdownElement.textContent = "🎉 Happy Birthday!!! 🎉";
+        messageElement.textContent = "Wishing you all the love and happiness in the world 💕";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // --- Slideshow ---
+    let slideIndex = 0;
+    function showSlides() {
+      const slides = document.getElementsByClassName("mySlides");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 3000); // 3 seconds
+    }
+    showSlides();
+
+    // --- Audio Control ---
+    const audio = document.getElementById("bg-music");
+    function toggleMute() {
+      audio.muted = !audio.muted;
+    }
+  </script>
+
+</body>
+</html>
